@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import jp.co.jcps.Common.CommonCheck;
 import jp.co.jcps.Common.DBConnection;
@@ -20,7 +21,6 @@ import jp.co.jcps.Common.DBConnection;
 @WebServlet("/ParticipantListController")
 public class ParticipantListControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
 	/**
 	 * コンストラクタ
 	 */
@@ -28,9 +28,7 @@ public class ParticipantListControllerServlet extends HttpServlet {
 		super();
 	}
 
-	/**
-	 * GETメソッドでリクエストされた場合の処理
-	 */
+	/**	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// 共通チェック
@@ -41,15 +39,17 @@ public class ParticipantListControllerServlet extends HttpServlet {
 
 		// リクエストパラメーターから活動IDを取得する
 		// TODO: リクエストから遷移元でクリックされた活動IDを取得できるように44行目を変更しなさい。
-		String activityId = "";
+		HttpSession session = request.getSession(false);
+		String activityId =(String)request.getParameter("activityId");
 
 		// TODO: データベースから必要な情報を取得するためのSQL文を完成させなさい。
-		String sql = "SELECT ";
+		String sql = "SELECT trn_activity.activity_name,from trn_activity where activity_name = ?";
 
 		// SQLに埋め込むパラメータリストを定義
 		List<String> paramList = new ArrayList<String>();
 		// TODO: SQLに埋め込む値を設定しなさい。
-		
+		paramList.add(activityId);
+
 
 		// DB接続を初期化
 		DBConnection db = new DBConnection();
@@ -72,6 +72,8 @@ public class ParticipantListControllerServlet extends HttpServlet {
 				DBから取得した情報はResultSetクラスのgetString()メソッドで取得する。
 				getStringメソッドの引数は取得したいカラム名を文字列で指定する。
 				 */
+				bean.setActivityName(rs.getString("activityName"));
+				bean.addParticipantList(rs.getString(""));
 
 
 			}
