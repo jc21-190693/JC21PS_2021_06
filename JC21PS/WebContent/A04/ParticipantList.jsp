@@ -54,7 +54,7 @@
  			 --%>
 
   			<tr>
- 				<td>bean.getParticipantList().get(i)</td>
+ 				<td><%= bean.getParticipantList().get(i) %></td>
  			<tr>
   		<% } %>
   		</tbody>
