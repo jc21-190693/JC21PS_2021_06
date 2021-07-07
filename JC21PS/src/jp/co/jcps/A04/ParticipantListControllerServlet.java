@@ -68,7 +68,7 @@ public class ParticipantListControllerServlet extends HttpServlet {
 				で設定・追加ができる。
 				ヒント②
 				DBから取得した情報はResultSetクラスのgetString()メソッドで取得する。
-				getStringメソッドの引数は取得したいカラム名を文字列で指定する。
+				getStringメソッドの引数は取得したいカラム名を文字列で指定する
 				 */
 				bean.setActivityName(rs.getString("activity_Name"));
 				bean.addParticipantList(rs.getString("user_name"));
