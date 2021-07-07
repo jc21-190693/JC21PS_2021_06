@@ -10,9 +10,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import jp.co.jcps.Common.CommonCheck;
 import jp.co.jcps.Common.DBConnection;
+
 
 /**
  * 部員登録申請画面のコントローラー
@@ -40,11 +42,13 @@ public class JoinRequestControllerServlet extends HttpServlet {
 		}
 
 		// セッションからログイン中のユーザーIDを取得する
-		/* TODO: セッションからユーザーIDを取得しなさい。
-		 *  ヒント
+		/* TODO: セッションからユーザーIDを取得しなさい。*/
+		 /*  ヒント
 		 *  セッションには「userId」という名前でログインユーザーIDが格納されている。
 		 */
-		String userId = ;
+		HttpSession session = request.getSession(false);
+
+		String userId = (String)session.getAttribute("userId");
 
 		// SQLを宣言
 		String sql = "SELECT * FROM mst_club WHERE club_id NOT IN (SELECT club_id FROM trn_join_request WHERE user_id = ?) AND club_id NOT IN (SELECT club_id FROM trn_club_member WHERE user_id = ?);";
@@ -56,7 +60,9 @@ public class JoinRequestControllerServlet extends HttpServlet {
 		 *  Listにはaddメソッドで要素を追加することができる。
 		 *  ヒント②
 		 *  ログインユーザーの情報を使う。
-		 */
+		 つぎはここから*/
+		paramList.add(userId);
+		paramList.add(userId);
 
 
 
