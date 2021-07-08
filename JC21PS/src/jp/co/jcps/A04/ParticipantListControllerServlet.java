@@ -10,7 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import jp.co.jcps.Common.CommonCheck;
 import jp.co.jcps.Common.DBConnection;
@@ -39,11 +38,10 @@ public class ParticipantListControllerServlet extends HttpServlet {
 
 		// リクエストパラメーターから活動IDを取得する
 		// TODO: リクエストから遷移元でクリックされた活動IDを取得できるように44行目を変更しなさい。
-		HttpSession session = request.getSession(false);
 		String activityId =(String)request.getParameter("activityId");
 
 		// TODO: データベースから必要な情報を取得するためのSQL文を完成させなさい。
-		String sql = "SELECT trn_activity.activity_name,from trn_activity where activity_name = ?";
+		String sql = "SELECT trn_activity.activity_name,mst_user.user_name FROM trn_activity INNER JOIN trn_participant USING(activity_id) INNER JOIN mst_user USING(user_id) WHERE activity_id = ?;";
 
 		// SQLに埋め込むパラメータリストを定義
 		List<String> paramList = new ArrayList<String>();
@@ -70,11 +68,10 @@ public class ParticipantListControllerServlet extends HttpServlet {
 				で設定・追加ができる。
 				ヒント②
 				DBから取得した情報はResultSetクラスのgetString()メソッドで取得する。
-				getStringメソッドの引数は取得したいカラム名を文字列で指定する。
+				getStringメソッドの引数は取得したいカラム名を文字列で指定する
 				 */
-				bean.setActivityName(rs.getString("activityName"));
-				bean.addParticipantList(rs.getString(""));
-
+				bean.setActivityName(rs.getString("activity_Name"));
+				bean.addParticipantList(rs.getString("user_name"));
 
 			}
 		} catch (Exception e) {

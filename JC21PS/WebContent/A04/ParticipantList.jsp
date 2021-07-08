@@ -42,7 +42,7 @@
   			<th>参加者一覧</th>
   		</tr>
   		<%--TODO
-  		for文を完成させなさい。
+  		for文を完成させなさい
   		ヒント
   		size()メソッドでListの要素数を取得することができる
   		 --%>
@@ -54,7 +54,7 @@
  			 --%>
 
   			<tr>
- 				<td>bean.getParticipantList().get(i)</td>
+ 				<td><%= bean.getParticipantList().get(i) %></td>
  			<tr>
   		<% } %>
   		</tbody>
